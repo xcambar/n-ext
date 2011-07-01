@@ -1,0 +1,3 @@
+* What is N-Ext ?
+
+N-Ext is intended to allow developpers to use the Ext.data package of ExtJS4 in a serer-side environment using Node.js
