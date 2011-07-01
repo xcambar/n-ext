@@ -12,6 +12,13 @@ The project is at its early stages of development, and features only a very smal
 
 ## How to use it
 
+*N-Ext* can not (as of now) use any packaged version of Ext, it fetches the required files directly from the source.
+The reason is simple: Although the decoupling and the separation of concerns in ExtJS is getting better and better through major revisions, its core has yet references to client-side specific code which we don't want to run.
+
+That's why when using N-Ext in your application, you must set as the source path the folder in which is the file Ext.js, and not any of the ext-core*.js or ext-all*.js, to avoid as much as possible the execution od client-side specific code.
+
+Here's how it goes:
+
 ```javascript
 var loader = require('n-ext'); // Lad the module and store it in a variable
 loader.setPath(__dirname + '/vendor/Ext/src/'); // Indicates the path to the ExtJS source files
