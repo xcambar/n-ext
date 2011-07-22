@@ -1,34 +1,40 @@
+require.paths.unshift('/usr/local/lib/node_modules');
 require.paths.unshift('./../lib');
-require.paths.push('/usr/local/lib/node_modules');
 
-
-var sencha = require('n-ext'); 
-sencha.setPath(__dirname + '/../lib/Ext-srv/');
+var sencha = require('n-ext');
+sencha.setPath(__dirname + '/../lib/Ext-core-srv/'); //Path
 sencha.bootstrapCore();
 
-Ext.Loader.setPath('NoSQL', __dirname + '/../lib/NoSQL');
+
+console.log('start');
+
 
 Ext.require('NoSQL.model.Document');
-console.log('start');
-/**
-var store = new Next.data.Store({
+var store = Ext.create('Ext.data.Store', {
 	model: 'NoSQL.model.Document',
 	autoLoad: {
 		callback: function(records, operation, success) {
-			console.log('records: ', records);
+			//console.log('records: ', records);
 			console.log(this.getCount());
-			this.getProxy().close();
 		}
 	}
 });
-**/
 
 var model = Ext.create('NoSQL.model.Document', {
-    'a' : '987',
-    onReady: function() {
-		model.save();
-		console.log('end');
+    'number' : Math.round(Math.random()*1000)
+});
+model.save({
+    callback: function() {
+        console.log('Done');
+    },
+    failure: function() {
+        console.log('failure!');
+    },
+    success: function() {
+        console.log(this.getId());
     }
 });
-//console.log(store.load().data.items);
+console.log('end');
 
+/**
+**/
