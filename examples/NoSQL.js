@@ -6,16 +6,18 @@ sencha.setPath(__dirname + '/../lib/Ext-core-srv/'); //Path
 sencha.bootstrapCore();
 
 
-console.log('start');
-
-
 Ext.require('NoSQL.model.Document');
 var store = Ext.create('Ext.data.Store', {
 	model: 'NoSQL.model.Document',
 	autoLoad: {
 		callback: function(records, operation, success) {
-			//console.log('records: ', records);
-			console.log(this.getCount());
+			//Counts the number of items in the collection
+			console.log('The collection has ' + this.getCount() + ' items.');
+			//Retrieves an object
+			var obj = store.getById('b51c524e45d38b3100000000');
+			//Updates the object
+			obj.set('ga', true);
+			obj.save();
 		}
 	}
 });
@@ -34,7 +36,3 @@ model.save({
         console.log(this.getId());
     }
 });
-console.log('end');
-
-/**
-**/
