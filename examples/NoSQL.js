@@ -14,14 +14,16 @@ var store = Ext.create('Ext.data.Store', {
 			//Counts the number of items in the collection
 			console.log('The collection has ' + this.getCount() + ' items.');
 			//Retrieves an object
-			var obj = store.getById('b51c524e45d38b3100000000');
+			var obj = store.getById('4b65524e0c41b12600000000');
 			//Updates the object
 			obj.set('ga', true);
-			obj.save();
+			obj.update();
+			obj.destroy();
 		}
 	}
 });
 
+/**
 var model = Ext.create('NoSQL.model.Document', {
     'number' : Math.round(Math.random()*1000)
 });
@@ -36,3 +38,4 @@ model.save({
         console.log(this.getId());
     }
 });
+**/
