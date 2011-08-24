@@ -1,5 +1,7 @@
-require.paths.unshift('./lib');
+require.paths.unshift('/usr/local/lib/node_modules');
+var sencha = require('n-ext');
+sencha.bootstrapCore();
+sencha.enableNSAutoloader();
+Ext.require('NoSQL.model.Document');
 
-var sencha = require('n-ext'); 
-sencha.setPath(__dirname + '/lib/Ext-core-srv/');
-var Ext = sencha.bootstrapCore(true);
+var d = Ext.create('NoSQL.model.Document');

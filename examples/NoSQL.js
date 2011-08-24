@@ -1,5 +1,4 @@
 require.paths.unshift('/usr/local/lib/node_modules');
-require.paths.unshift('./../lib');
 
 var sencha = require('n-ext');
 sencha.setPath(__dirname + '/../lib/Ext-core-srv/'); //Path

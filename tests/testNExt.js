@@ -6,16 +6,23 @@ require.paths.unshift('./lib');
 exports.testExtCanSandBox = function(test) {
 	test.expect(1);
 	var sencha = require('n-ext'); 
-	sencha.setPath(__dirname + '/../lib/Ext-core-srv/');
 	var e = sencha.bootstrapCore(true);
 	test.ok(typeof(Ext) === 'undefined', 'Global variable Ext should not be defined');
+	test.done();
+}
+
+exports.testSandBoxMustAccessExtInternally = function(test) {
+	test.expect(1);
+	var sencha = require('n-ext'); 
+	var e = sencha.bootstrapCore(true);
+	e.apply({}, {});
+	test.ok(true);
 	test.done();
 }
 
 exports.testExtCanBeGlobal = function(test) {
 	test.expect(1);
 	var sencha = require('n-ext'); 
-	sencha.setPath(__dirname + '/../lib/Ext-core-srv/');
 	sencha.bootstrapCore();
 	test.ok(typeof(Ext) !== 'undefined', 'Global variable Ext should be defined');
 	test.done();
