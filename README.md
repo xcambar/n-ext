@@ -1,45 +1,61 @@
 # What is N-Ext ?
 
-**N-Ext** is the compression of *Node* and *Ext*.
-Its purpose is to allow developpers to use the ExtJS4 in a server-side environment using Node.js
-
-The project is at its early stages of development, and features only a very small subset of what it is supposed to do once ready.
+**N-Ext** is the compression of [*Node*](http://nodejs.org) and [*Ext*](http://www.sencha.com/products/extjs/).
+Its purpose is to allow developpers to use the ExtJS 4 Javascript framework in a server-side environment using Node.js.
 
 ## Features
-* Brings Ext.core without the client-side-specific parts
-* Brings the [dynamic class loading package](http://www.sencha.com/blog/countdown-to-ext-js-4-dynamic-loading-and-new-class-system)
-* Brings Ext.data package (no adapters available yet. **Coming soon**)
+
+The project provides:
+
+* Ext.core without the client-side-specific parts
+* The [Dynamic class loading package](http://www.sencha.com/blog/countdown-to-ext-js-4-dynamic-loading-and-new-class-system)
+* Ext.data package
+* Provides a proxy for MongoDB that can be used with the classes from Ext.data. The proxy uses the excellent [node-mongodb-native](https://github.com/christkv/node-mongodb-native) adapter
+* Examples available
+* A developer who is all-ears to requests and comments!
 
 ## How to use it
 
-*N-Ext* can not (as of now) use any packaged version of Ext, it fetches the required files directly from the source.
-The reason is simple: Although the decoupling and the separation of concerns in ExtJS is getting better and better through major revisions, its core has yet references to client-side specific code which we don't want to run.
+Note: 
+*N-Ext* can not (as of now) use packaged version of ExtJS.
+It provides a minimal subset of ExtJS in which the DOM-specific code has been removed.
 
-That's why when using N-Ext in your application, you must set as the source path the folder in which is the file Ext.js, and not any of the ext-core*.js or ext-all*.js, to avoid as much as possible the execution od client-side specific code.
+###Set up N-Ext:
 
-Here's how it goes:
+1. Download the latest version of [ExtJS 4](http://www.sencha.com/products/extjs/)
+2. Unzip the ```src``` folder in ```%PROJECT_ROOT%/lib/Ext``` (this can be changed with a single line of code)
+3. In the main file (it can be any file) of your application, type the following:
 
-```javascript
-var loader = require('n-ext'); // Lad the module and store it in a variable
-loader.setPath(__dirname + '/vendor/Ext/src/'); // Indicates the path to the ExtJS source files
-loader.bootstrapCore();
-```
+    ```javascript
+    var sencha = require('n-ext');
+    sencha.bootstrapCore();
+    ```
 
-And that's it! You now have the Ext object available application-wide.
+And that's it! You now have the beloved ```Ext``` namespace available application-wide.
 
+##Documentation
 
-If you're not confident in having Ext available app-wide, just type the following instead
-
-```javascript
-var _e = loader.bootstrapCore(true);
-```
-Doing this, you get a version of Ext that is only available within the scope in which loader.bootstrapCode() has been called. 
-
-It's up to you. Play it global or local, you choose, you still have all the power of ExtJS4 server-side.
+A little (but growing) documentation is available at the [Wiki](https://github.com/xcambar/n-ext/wiki).
 
 ##FAQ
 
-None yet, as the project has just started. Feel free to contact me (see below), I'll be glad to answer you.
+* What is the point of the project ?
+
+Fun! Seriously, there is of course a *serious* reason to that (although fun is a big part of the game).
+The point is that with ExtJS (which I love), client-side coding carries its share of the model, of the application,
+and I was bored to have to code two equivalent models in both the server and the model, but with 2 different languages.
+It meant twice the amount of coding, more than twice the amount of unit testing and a world of troubles.
+
+So I plunged into Node.js and started coding N-Ext, hoping to have a consistent framework to work on and with throughout the apps I developed.
+
+* Why does the ```Ext``` namespace have to be global to the app ?
+
+I agree this is counter-intuitive forin regards to the [CommonJS](http://www.commonjs.org/) conventions, but this is a
+limitation due to the way the Ext namespace is constructed and its packages are self- and inter-referencing through the namespace.
+I've worked a little on sandboxing the Ext namespace and having it in the exports variable of the module, but to no avail yet.
+
+On the other hand, the package is supposed to be used throughout the whole app, so I'm still wondering whether it is
+absolutely required or just more normative.
 
 ## License
 See the ```LICENSE``` File
