@@ -1,7 +1,6 @@
 require.paths.unshift('/usr/local/lib/node_modules'); //Specific to my dev environment
 
 var sencha = require('n-ext');
-sencha.enableNSAutoloader();
 sencha.bootstrapCore();
 
 
