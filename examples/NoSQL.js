@@ -1,5 +1,11 @@
-require.paths.unshift('/usr/local/lib/node_modules'); //Specific to my dev environment
+/**
+ * This CLI example demonstrates a number of possible
+ * yet basic usages of Ext using the proxy based upon the node-mongodb-native adapter.
+ * It is mainly a sandbox for the MongoDB proxy.
+ * @link node-mongodb-native https://github.com/christkv/node-mongodb-native
+ */
 
+require.paths.unshift('/usr/local/lib/node_modules'); //Specific to my dev environment
 var sencha = require('n-ext');
 sencha.bootstrapCore();
 
@@ -9,13 +15,8 @@ var store = Ext.create('Ext.data.Store', {
 	model: 'NoSQL.model.Document',
 	autoLoad: {
 		callback: function(records, operation, success) {
-			//Counts the number of items in the collection
 			console.log('The collection has ' + this.getCount() + ' items.');
-			//Retrieves and updates an object
-			//var obj = store.getById('4b65524e0c41b12600000000');
-			//obj.set('ga', true);
-			//obj.update();
-			//obj.destroy();
+
 		}
 	}
 });
