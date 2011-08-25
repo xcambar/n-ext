@@ -1,3 +1,11 @@
+/**
+ * This example demonstrates thazt used with a micro framework like Express
+ * one can build quickly an API which model fits line by line
+ * with the one used client-side 
+ * 
+ * @link Express Framework (https://github.com/visionmedia/express) 
+ */
+
 require.paths.unshift('/usr/local/lib/node_modules'); //specific to my dev environment
 var express = require('express');
 var sencha = require('n-ext');
