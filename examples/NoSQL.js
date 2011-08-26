@@ -10,9 +10,9 @@ var sencha = require('n-ext');
 sencha.bootstrapCore();
 
 
-Ext.require('NoSQL.model.Document');
+Ext.require('Next.model.NoSQL.Document');
 var store = Ext.create('Ext.data.Store', {
-	model: 'NoSQL.model.Document',
+	model: 'Next.model.NoSQL.Document',
 	autoLoad: {
 		callback: function(records, operation, success) {
 			console.log('The collection has ' + this.getCount() + ' items.');
@@ -21,7 +21,7 @@ var store = Ext.create('Ext.data.Store', {
 	}
 });
 
-var model = Ext.create('NoSQL.model.Document', {
+var model = Ext.create('Next.model.NoSQL.Document', {
     'number' : Math.round(Math.random()*1000)
 });
 model.save({

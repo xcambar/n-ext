@@ -1,5 +1,5 @@
 /**
- * This example demonstrates thazt used with a micro framework like Express
+ * This example demonstrates that used with a micro framework like Express
  * one can build quickly an API which model fits line by line
  * with the one used client-side 
  * 
@@ -7,21 +7,33 @@
  */
 
 require.paths.unshift('/usr/local/lib/node_modules'); //specific to my dev environment
-var express = require('express');
-var sencha = require('n-ext');
-sencha.bootstrapCore();
+try {
+	var sencha = require('n-ext');
+	sencha.bootstrapCore();
+	var util = require('util');
+	var express = require('express');
+} catch (e) {
+	util.debug(e.toString());
+	util.debug(util.inspect(e));
+	process.exit();
+}
 
-Ext.require('NoSQL.model.Document');
+Ext.require('Next.model.NoSQL.Document');
 var app = express.createServer();
 app.use(express.bodyParser());
 
 /**
  * List the items in the Doc collection
  */
-app.get('/doc', function(req, res) {
-	var store = Ext.create('Ext.data.Store', {
-		model: 'NoSQL.model.Document',
+app.get('/doc/:start?/:limit?', function(req, res, next) {
+	if (req.params.start && !req.params.limit) {
+		next();
+		return;
+	}
+	var store = Ext.create('Next.data.Store.Mongo', {
 		autoLoad: {
+			skip: req.params.start,
+			limit: req.params.limit,
 			callback: function(records, operation, success) {
 				var _array = new Array();
 				Ext.Array.forEach(records, function(item){
@@ -39,13 +51,9 @@ app.get('/doc', function(req, res) {
  * Count the items in the Doc collection
  */
 app.get('/doc/count', function(req, res) {
-	var store = Ext.create('Ext.data.Store', {
-		model: 'NoSQL.model.Document',
-		autoLoad: {
-			callback: function(records, operation, success) {
-				res.send(this.getCount().toString());
-			}
-		}
+	var store = Ext.create('Next.data.Store.Mongo');
+	store.load(function() {
+		res.send(store.getTotalCount().toString());
 	});
 });
 
@@ -53,10 +61,8 @@ app.get('/doc/count', function(req, res) {
  * Creates an item
  */
 app.post('/doc', function(req, res) {
-	var model = Ext.create('NoSQL.model.Document');
-	for(var idx in req.body) {
-		model.set(idx, req.body[idx]);
-	}
+	var model = Ext.create('Next.model.NoSQL.Document');
+	model.set(req.body);
 	model.save({
 	    failure: function() {
 	        res.json({
@@ -74,14 +80,9 @@ app.post('/doc', function(req, res) {
  * Retrieves an item by its id
  */
 app.get('/doc/:id', function(req, res) {
-	var store = Ext.create('Ext.data.Store', {
-		model: 'NoSQL.model.Document',
-		autoLoad: {
-			callback: function(records, operation, success) {
-				var obj = store.getById(req.params.id);
-				res.json(obj ? obj.data : null);
-			}
-		}
+	var store = Ext.create('Next.data.Store.Mongo');
+	store.getById(req.params.id, function(obj) {
+		res.json(obj ? obj.data : null);
 	});
 });
 
@@ -89,25 +90,20 @@ app.get('/doc/:id', function(req, res) {
  * Updates an item by its id
  */
 app.put('/doc/:id', function(req, res) {
-	var store = Ext.create('Ext.data.Store', {
-		model: 'NoSQL.model.Document',
-		autoLoad: {
-			callback: function(records, operation, success) {
-				var obj = store.getById(req.params.id);
-				if (obj === null) {
-					res.json({
-						'status': 'error',
-						'message' : 'No data with ID: ' + req.params.id
-					}, 400);
-				} else {
-					var body = req.body;
-					for (var idx in body) {
-						obj.set(idx, body[idx]);
-					}
-					obj.save();
-					res.send(obj.data);
-				}
+	var store = Ext.create('Next.data.Store.Mongo');
+	store.getById(req.params.id, function(obj) {
+		if (obj === null) {
+			res.json({
+				'status': 'error',
+				'message' : 'No data with ID: ' + req.params.id
+			}, 400);
+		} else {
+			var body = req.body;
+			for (var idx in body) {
+				obj.set(idx, body[idx]);
 			}
+			obj.save();
+			res.send(obj.data);
 		}
 	});
 });
@@ -116,29 +112,25 @@ app.put('/doc/:id', function(req, res) {
  * Deletes an item by its id
  */
 app.del('/doc/:id', function(req, res) {
-	var store = Ext.create('Ext.data.Store', {
-		model: 'NoSQL.model.Document',
-		autoLoad: {
-			callback: function(records, operation, success) {
-				var obj = store.getById(req.params.id);
-				if (obj === null) {
-					res.json({
-						'status': 'error',
-						'message' : 'No data with ID: ' + req.params.id
-					}, 400);
-				} else {
-					obj.destroy({
-						success: function() {
-							res.send(obj.data);
-						},
-					    failure: function() {
-					        res.json({
-					        	'status': 'Unable to save the data'
-					        }, 500);
-					    },
-					});
-				}
-			}
+	var store = Ext.create('Next.data.Store.Mongo');
+	
+	store.getById(req.params.id, function(obj) {
+		if (obj === null) {
+			res.json({
+				'status': 'error',
+				'message' : 'No data with ID: ' + req.params.id
+			}, 400);
+		} else {
+			obj.destroy({
+				success: function() {
+					res.send(obj.data);
+				},
+			    failure: function() {
+			        res.json({
+			        	'status': 'Unable to save the data'
+			        }, 500);
+			    },
+			});
 		}
 	});
 });
