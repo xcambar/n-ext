@@ -17,8 +17,10 @@ The project provides:
 ## How to use it
 
 Note: 
-*N-Ext* can not (as of now) use packaged version of ExtJS.
+* *N-Ext* can not (as of now) use packaged version of ExtJS.
 It provides a minimal subset of ExtJS in which the DOM-specific code has been removed.
+* The only requirement to have N-Ext workin is the module contained in the ```node_modules``` folder.
+  The ```lib``` folder contains the whole Ext package and the MongoDB proxy and store.
 
 ###Set up N-Ext:
 
