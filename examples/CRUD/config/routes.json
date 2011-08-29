@@ -1,0 +1,32 @@
+exports.routes = [
+	{
+		route: '/doc/:start?/:limit?',
+		method: 'GET',
+		handler: {class: 'MyCRUD.route.doc', method: 'list'}
+	},
+	{
+		route: '/doc/count',
+		method: 'GET',
+		handler: {class: 'MyCRUD.route.doc', method: 'docCount'}
+	},
+	{
+		route: '/doc',
+		method: 'POST',
+		handlerCls: 'MyCRUD.route.doc'
+	},
+	{
+		route: '/doc/:id',
+		method: 'GET',
+		handlerCls: 'MyCRUD.route.doc'
+	},
+	{
+		route: '/doc/:id',
+		method: 'PUT',
+		handlerCls: 'MyCRUD.route.doc'
+	},
+	{
+		route: '/doc/:id',
+		method: 'DELETE',
+		handlerCls: 'MyCRUD.route.doc'
+	}
+];

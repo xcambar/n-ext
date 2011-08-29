@@ -1,0 +1,39 @@
+/**
+ * Definition of the routes used by the app
+ * 
+ **/
+
+/**
+exports.routes = [
+	{
+		route: '/doc/:start?/:limit?',
+		method: 'GET',
+		handlerCls: 'Next.route.doc'
+	},
+	{
+		route: '/doc/count',
+		method: 'GET',
+		handlerCls: 'Next.route.doc'
+	},
+	{
+		route: '/doc',
+		method: 'POST',
+		handlerCls: 'Next.route.doc'
+	},
+	{
+		route: '/doc/:id',
+		method: 'GET',
+		handlerCls: 'Next.route.doc'
+	},
+	{
+		route: '/doc/:id',
+		method: 'PUT',
+		handlerCls: 'Next.route.doc'
+	},
+	{
+		route: '/doc/:id',
+		method: 'DELETE',
+		handlerCls: 'Next.route.doc'
+	}
+];
+**/
