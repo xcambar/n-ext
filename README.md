@@ -60,7 +60,11 @@ On the other hand, the package is supposed to be used throughout the whole app, 
 absolutely required or just more normative.
 
 ## License
-See the ```LICENSE``` File
+
+N-ext is released under the MIT license.
+ExtJS 4 is dual-licensed: GPL and commercial license.
+
+See the ```LICENSE``` File for details. Head to [sencha.com](http://sencha.com) for greater details about the license of RxtJD
 
 ##Contact
 * Xavier Cambar
