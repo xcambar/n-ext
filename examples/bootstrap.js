@@ -3,11 +3,11 @@
  * the library in order to use ExtJS in a Node.JS environment
  */
 
-require.paths.unshift('/usr/local/lib/node_modules');
 var sencha = require('n-ext');
 sencha.bootstrapCore();
+Ext.Loader.setPath('Next', 'lib/Next');
 
 
 //That's all that is required to be able to use the data package of ExtJS in a node environment
-Ext.require('NoSQL.model.Document');
-var d = Ext.create('NoSQL.model.Document');
+Ext.require('Next.model.NoSQL.Document');
+var d = Ext.create('Next.model.NoSQL.Document');

@@ -52,7 +52,7 @@ So I plunged into Node.js and started coding N-Ext, hoping to have a consistent 
 
 * Why does the ```Ext``` namespace have to be global to the app ?
 
-I agree this is counter-intuitive forin regards to the [CommonJS](http://www.commonjs.org/) conventions, but this is a
+I agree this is counter-intuitive in regards to the [CommonJS](http://www.commonjs.org/) conventions, but this is a
 limitation due to the way the Ext namespace is constructed and its packages are self- and inter-referencing through the namespace.
 I've worked a little on sandboxing the Ext namespace and having it in the exports variable of the module, but to no avail yet.
 
@@ -65,5 +65,5 @@ See the ```LICENSE``` File
 ##Contact
 * Xavier Cambar
  * Directly on GitHub
- * Mail : xavier.cambar@lecoffre.net
- * Twitter: (@xcambar)[http://twitter.com/#!/xcambar]
+ * Mail : xavier.cambar@gmail.com
+ * Twitter: [@xcambar](http://twitter.com/#!/xcambar)
