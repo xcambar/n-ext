@@ -69,5 +69,5 @@ See the ```LICENSE``` File for details. Head to [sencha.com](http://sencha.com) 
 ##Contact
 * Xavier Cambar
  * Directly on GitHub
- * Mail : xavier.cambar@gmail.com
+ * Mail : xcambar@gmail.com
  * Twitter: [@xcambar](http://twitter.com/#!/xcambar)
